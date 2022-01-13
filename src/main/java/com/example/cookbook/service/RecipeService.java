@@ -1,9 +1,10 @@
 package com.example.cookbook.service;
 
 import com.example.cookbook.mapping.RecipeMapper;
-import com.example.cookbook.model.AddRecipeRequestResponse;
-import com.example.cookbook.model.GetAllRecipeResponse;
-import com.example.cookbook.model.GetOneRecipeResponse;
+import com.example.cookbook.model.AddRecipeRequest;
+import com.example.cookbook.model.AddRecipeResponse;
+import com.example.cookbook.model.GetRecipeByIdResponse;
+import com.example.cookbook.model.GetRecipesResponse;
 import com.example.cookbook.persistence.entities.RecipeEntity;
 import com.example.cookbook.persistence.repository.RecipeRepository;
 import com.example.cookbook.rest.CookBookController;
@@ -32,16 +33,16 @@ public class RecipeService {
     }
 
     //ADD RECIPE
-    public AddRecipeRequestResponse addRecipe(AddRecipeRequestResponse request) {
-        return recipeMapper.entityToAddResponse(recipeRepository.save(recipeMapper.requestToEntity(request)));
+    public AddRecipeResponse addRecipe(AddRecipeRequest request) {
+        return recipeMapper.entityToResponse(recipeRepository.save(recipeMapper.requestToEntity(request)));
     }
 
     //GET RECIPES
-    public List<GetAllRecipeResponse> getRecipes(String name) {
-        List<GetAllRecipeResponse> responseList = recipeMapper.entitiesToResponses(findByCriteria(name));
+    public List<GetRecipesResponse> getRecipes(String name) {
+        List<GetRecipesResponse> responseList = recipeMapper.entitiesToResponses(findByCriteria(name));
 
-        responseList.forEach(getAllRecipeResponse -> getAllRecipeResponse.add(linkTo(methodOn(CookBookController.class)
-                .getRecipeById(getAllRecipeResponse.getId()))
+        responseList.forEach(getRecipesResponse -> getRecipesResponse.add(linkTo(methodOn(CookBookController.class)
+                .getRecipeById(getRecipesResponse.getId()))
                 .withRel("Recipe")));
 
         return responseList.stream()
@@ -51,7 +52,7 @@ public class RecipeService {
     }
 
     //GET RECIPE BY ID
-    public GetOneRecipeResponse getRecipeById(Long id) {
+    public GetRecipeByIdResponse getRecipeById(Long id) {
         return recipeMapper.entityToGetResponse(recipeRepository.getById(id));
     }
 

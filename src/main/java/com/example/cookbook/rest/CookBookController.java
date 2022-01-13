@@ -2,6 +2,7 @@ package com.example.cookbook.rest;
 
 import com.example.cookbook.model.*;
 import com.example.cookbook.service.IngredientService;
+import com.example.cookbook.service.MenuService;
 import com.example.cookbook.service.RecipeService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,13 @@ public class CookBookController {
 
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
+    private final MenuService menuService;
 
 
-    public CookBookController(RecipeService recipeService, IngredientService ingredientService) {
+    public CookBookController(RecipeService recipeService, IngredientService ingredientService, MenuService menuService) {
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
+        this.menuService = menuService;
     }
 
     // ADD RECIPE
@@ -27,10 +30,10 @@ public class CookBookController {
             value = "/recipe",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.POST)
-    public ResponseEntity<AddRecipeRequestResponse> addRecipe(
+    public ResponseEntity<AddRecipeResponse> addRecipe(
             @ApiParam(value = "JSON payload", required = true)
             @Valid
-            @RequestBody AddRecipeRequestResponse request) {
+            @RequestBody AddRecipeRequest request) {
         return ResponseEntity.ok(recipeService.addRecipe(request));
     }
 
@@ -39,10 +42,10 @@ public class CookBookController {
             value = "/recipe/{recipeId}/ingredient",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.POST)
-    public ResponseEntity<AddIngredientRequestResponse> addIngredient(
+    public ResponseEntity<AddIngredientResponse> addIngredient(
             @ApiParam(value = "JSON payload", required = true)
             @Valid
-            @RequestBody AddIngredientRequestResponse request
+            @RequestBody AddIngredientRequest request
             ,
             @ApiParam(value = "The recipe id", required = true)
             @PathVariable("recipeId") Long recipeId) {
@@ -54,7 +57,7 @@ public class CookBookController {
             value = "/recipe",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.GET)
-    public ResponseEntity<List<GetAllRecipeResponse>> getRecipes(String name) {
+    public ResponseEntity<List<GetRecipesResponse>> getRecipes(String name) {
         return ResponseEntity.ok(recipeService.getRecipes(name));
     }
 
@@ -63,7 +66,7 @@ public class CookBookController {
             value = "/recipe/{id}",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.GET)
-    public ResponseEntity<GetOneRecipeResponse> getRecipeById(
+    public ResponseEntity<GetRecipeByIdResponse> getRecipeById(
             @ApiParam(value = "The recipe id", required = true) @PathVariable("id") Long id) {
 
         return ResponseEntity.ok(recipeService.getRecipeById(id));
@@ -74,7 +77,7 @@ public class CookBookController {
             value = "/ingredient/{id}",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.PUT)
-    public ResponseEntity<AddIngredientRequestResponse> updateIngredient(
+    public ResponseEntity<AddIngredientResponse> updateIngredient(
             @ApiParam(value = "The new name", required = true)
             @Valid
             @RequestParam(value = "name") String name
@@ -103,6 +106,19 @@ public class CookBookController {
 
         return ResponseEntity.ok(ingredientService.getIngredientsByName(name));
     }
+
+    //ADD MENU
+    @RequestMapping(
+            value = "/menu",
+            produces = {"application/json;charset=utf-8"},
+            method = RequestMethod.POST)
+    public ResponseEntity<AddMenuResponse> addMenu(
+            @ApiParam(value = "JSON payload", required = true)
+            @Valid
+            @RequestBody AddMenuRequest request) {
+        return ResponseEntity.ok(menuService.addMenu(request));
+    }
+
 
 
 }

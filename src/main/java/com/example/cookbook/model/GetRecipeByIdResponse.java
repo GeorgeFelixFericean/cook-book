@@ -1,13 +1,11 @@
 package com.example.cookbook.model;
 
-import com.example.cookbook.persistence.entities.IngredientEntity;
-
 import java.util.List;
 
-public class GetOneRecipeResponse {
+public class GetRecipeByIdResponse {
     String name;
     String link;
-    List<AddIngredientRequestResponse> ingredients;
+    List<AddIngredientResponse> ingredients;
 
     public String getName() {
         return name;
@@ -25,11 +23,11 @@ public class GetOneRecipeResponse {
         this.link = link;
     }
 
-    public List<AddIngredientRequestResponse> getIngredients() {
+    public List<AddIngredientResponse> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<AddIngredientRequestResponse> ingredients) {
+    public void setIngredients(List<AddIngredientResponse> ingredients) {
         this.ingredients = ingredients;
     }
 }

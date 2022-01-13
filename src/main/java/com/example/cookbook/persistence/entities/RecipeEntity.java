@@ -11,6 +11,7 @@ public class RecipeEntity {
     private String name;
     private List<IngredientEntity> ingredients;
     private String link;
+    private List<MenuEntity> menus;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,5 +58,18 @@ public class RecipeEntity {
         this.link = link;
     }
 
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "menus_recipes",
+            joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
+    public List<MenuEntity> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<MenuEntity> menus) {
+        this.menus = menus;
+    }
 }
 

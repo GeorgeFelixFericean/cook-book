@@ -1,6 +1,6 @@
 package com.example.cookbook.model;
 
-public class AddRecipeRequestResponse {
+public class AddRecipeRequest {
 
     private String name;
     private String link;

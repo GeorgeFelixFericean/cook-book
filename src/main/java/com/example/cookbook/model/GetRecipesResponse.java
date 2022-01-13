@@ -2,10 +2,10 @@ package com.example.cookbook.model;
 
 import org.springframework.hateoas.RepresentationModel;
 
-public class GetAllRecipeResponse extends RepresentationModel {
+public class GetRecipesResponse extends RepresentationModel {
     Long id;
     String name;
-    String link;
+
 
     public Long getId() {
         return id;
@@ -23,11 +23,4 @@ public class GetAllRecipeResponse extends RepresentationModel {
         this.name = name;
     }
 
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
 }

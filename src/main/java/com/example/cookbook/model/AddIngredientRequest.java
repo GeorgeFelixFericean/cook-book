@@ -1,19 +1,10 @@
 package com.example.cookbook.model;
 
-public class AddIngredientRequestResponse {
+public class AddIngredientRequest {
 
-    private Long id;
     private String name;
     private Integer quantity;
     private String um;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

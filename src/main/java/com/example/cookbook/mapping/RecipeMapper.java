@@ -1,8 +1,9 @@
 package com.example.cookbook.mapping;
 
-import com.example.cookbook.model.AddRecipeRequestResponse;
-import com.example.cookbook.model.GetAllRecipeResponse;
-import com.example.cookbook.model.GetOneRecipeResponse;
+import com.example.cookbook.model.AddRecipeRequest;
+import com.example.cookbook.model.AddRecipeResponse;
+import com.example.cookbook.model.GetRecipeByIdResponse;
+import com.example.cookbook.model.GetRecipesResponse;
 import com.example.cookbook.persistence.entities.RecipeEntity;
 import org.mapstruct.Mapper;
 
@@ -10,11 +11,11 @@ import java.util.List;
 
 @Mapper
 public interface RecipeMapper {
-    RecipeEntity requestToEntity(AddRecipeRequestResponse request);
+    RecipeEntity requestToEntity(AddRecipeRequest request);
 
-    AddRecipeRequestResponse entityToAddResponse(RecipeEntity entity);
+    AddRecipeResponse entityToResponse(RecipeEntity entity);
 
-    List<GetAllRecipeResponse> entitiesToResponses(List<RecipeEntity> entities);
+    List<GetRecipesResponse> entitiesToResponses(List<RecipeEntity> entities);
 
-    GetOneRecipeResponse entityToGetResponse(RecipeEntity entity);
+    GetRecipeByIdResponse entityToGetResponse(RecipeEntity entity);
 }

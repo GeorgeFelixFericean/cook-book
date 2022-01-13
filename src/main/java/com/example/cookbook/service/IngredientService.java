@@ -1,7 +1,8 @@
 package com.example.cookbook.service;
 
 import com.example.cookbook.mapping.IngredientMapper;
-import com.example.cookbook.model.AddIngredientRequestResponse;
+import com.example.cookbook.model.AddIngredientRequest;
+import com.example.cookbook.model.AddIngredientResponse;
 import com.example.cookbook.model.GetIngredientResponse;
 import com.example.cookbook.persistence.entities.IngredientEntity;
 import com.example.cookbook.persistence.entities.RecipeEntity;
@@ -9,11 +10,9 @@ import com.example.cookbook.persistence.repository.IngredientRepository;
 import com.example.cookbook.persistence.repository.RecipeRepository;
 import com.example.cookbook.rest.CookBookController;
 import org.mapstruct.factory.Mappers;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ public class IngredientService {
     }
 
     //ADD INGREDIENT
-    public AddIngredientRequestResponse addIngredient(AddIngredientRequestResponse request, Long recipeId) {
+    public AddIngredientResponse addIngredient(AddIngredientRequest request, Long recipeId) {
         RecipeEntity recipe = recipeRepository.getById(recipeId);
 
         Optional<IngredientEntity> optional = ingredientRepository.findIngredientEntityByNameAndRecipe(request.getName(), recipe);
@@ -53,7 +52,7 @@ public class IngredientService {
     }
 
     //UPDATE INGREDIENT
-    public AddIngredientRequestResponse updateIngredient(String name, String quantity, String um, Long id) {
+    public AddIngredientResponse updateIngredient(String name, String quantity, String um, Long id) {
 
         IngredientEntity ingredient = ingredientRepository.getById(id);
 
@@ -65,7 +64,6 @@ public class IngredientService {
         }
         if (!um.isBlank()) {
             ingredient.setUm(um);
-
         }
 
         return ingredientMapper.entityToResponse(ingredientRepository.save(ingredient));
