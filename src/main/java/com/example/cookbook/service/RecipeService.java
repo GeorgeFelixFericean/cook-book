@@ -4,7 +4,7 @@ import com.example.cookbook.mapping.RecipeMapper;
 import com.example.cookbook.model.AddRecipeRequest;
 import com.example.cookbook.model.AddRecipeResponse;
 import com.example.cookbook.model.GetRecipeByIdResponse;
-import com.example.cookbook.model.GetRecipesResponse;
+import com.example.cookbook.model.GetRecipesWithLinkResponse;
 import com.example.cookbook.persistence.entities.RecipeEntity;
 import com.example.cookbook.persistence.repository.RecipeRepository;
 import com.example.cookbook.rest.CookBookController;
@@ -38,11 +38,11 @@ public class RecipeService {
     }
 
     //GET RECIPES
-    public List<GetRecipesResponse> getRecipes(String name) {
-        List<GetRecipesResponse> responseList = recipeMapper.entitiesToResponses(findByCriteria(name));
+    public List<GetRecipesWithLinkResponse> getRecipes(String name) {
+        List<GetRecipesWithLinkResponse> responseList = recipeMapper.entitiesToResponses(findByCriteria(name));
 
-        responseList.forEach(getRecipesResponse -> getRecipesResponse.add(linkTo(methodOn(CookBookController.class)
-                .getRecipeById(getRecipesResponse.getId()))
+        responseList.forEach(getRecipesWithLinkResponse -> getRecipesWithLinkResponse.add(linkTo(methodOn(CookBookController.class)
+                .getRecipeById(getRecipesWithLinkResponse.getId()))
                 .withRel("Recipe")));
 
         return responseList.stream()

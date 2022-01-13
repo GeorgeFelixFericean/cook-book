@@ -42,7 +42,7 @@ public class CookBookController {
             value = "/recipe/{recipeId}/ingredient",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.POST)
-    public ResponseEntity<AddIngredientResponse> addIngredient(
+    public ResponseEntity<AddUpdateIngredientResponse> addIngredient(
             @ApiParam(value = "JSON payload", required = true)
             @Valid
             @RequestBody AddIngredientRequest request
@@ -57,7 +57,7 @@ public class CookBookController {
             value = "/recipe",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.GET)
-    public ResponseEntity<List<GetRecipesResponse>> getRecipes(String name) {
+    public ResponseEntity<List<GetRecipesWithLinkResponse>> getRecipes(String name) {
         return ResponseEntity.ok(recipeService.getRecipes(name));
     }
 
@@ -77,7 +77,7 @@ public class CookBookController {
             value = "/ingredient/{id}",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.PUT)
-    public ResponseEntity<AddIngredientResponse> updateIngredient(
+    public ResponseEntity<AddUpdateIngredientResponse> updateIngredient(
             @ApiParam(value = "The new name", required = true)
             @Valid
             @RequestParam(value = "name") String name
@@ -119,6 +119,18 @@ public class CookBookController {
         return ResponseEntity.ok(menuService.addMenu(request));
     }
 
-
+    //ADD RECIPE TO MENU
+    @RequestMapping(
+            value = "/menu/{menuId}/recipe/{recipeId}",
+            produces = {"application/json;charset=utf-8"},
+            method = RequestMethod.POST)
+    public ResponseEntity<AddRecipeResponse> addRecipeToMenu(
+            @ApiParam(value = "The menu id", required = true)
+            @PathVariable("menuId") Long menuId
+            ,
+            @ApiParam(value = "The recipe id", required = true)
+            @PathVariable("recipeId") Long recipeId) {
+        return ResponseEntity.ok(menuService.addRecipeToMenu(menuId, recipeId));
+    }
 
 }

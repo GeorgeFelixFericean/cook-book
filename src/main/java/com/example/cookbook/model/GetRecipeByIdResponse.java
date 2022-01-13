@@ -5,7 +5,7 @@ import java.util.List;
 public class GetRecipeByIdResponse {
     String name;
     String link;
-    List<AddIngredientResponse> ingredients;
+    List<AddUpdateIngredientResponse> ingredients;
 
     public String getName() {
         return name;
@@ -23,11 +23,11 @@ public class GetRecipeByIdResponse {
         this.link = link;
     }
 
-    public List<AddIngredientResponse> getIngredients() {
+    public List<AddUpdateIngredientResponse> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<AddIngredientResponse> ingredients) {
+    public void setIngredients(List<AddUpdateIngredientResponse> ingredients) {
         this.ingredients = ingredients;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.hateoas.RepresentationModel;
 public class GetIngredientResponse extends RepresentationModel {
     Long id;
     String name;
-    GetRecipeResponse recipe;
+    GetRecipesWithoutLinkResponse recipe;
 
 
     public Long getId() {
@@ -24,11 +24,11 @@ public class GetIngredientResponse extends RepresentationModel {
         this.name = name;
     }
 
-    public GetRecipeResponse getRecipe() {
+    public GetRecipesWithoutLinkResponse getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(GetRecipeResponse recipe) {
+    public void setRecipe(GetRecipesWithoutLinkResponse recipe) {
         this.recipe = recipe;
     }
 }

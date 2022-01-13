@@ -2,7 +2,7 @@ package com.example.cookbook.service;
 
 import com.example.cookbook.mapping.IngredientMapper;
 import com.example.cookbook.model.AddIngredientRequest;
-import com.example.cookbook.model.AddIngredientResponse;
+import com.example.cookbook.model.AddUpdateIngredientResponse;
 import com.example.cookbook.model.GetIngredientResponse;
 import com.example.cookbook.persistence.entities.IngredientEntity;
 import com.example.cookbook.persistence.entities.RecipeEntity;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -33,7 +32,7 @@ public class IngredientService {
     }
 
     //ADD INGREDIENT
-    public AddIngredientResponse addIngredient(AddIngredientRequest request, Long recipeId) {
+    public AddUpdateIngredientResponse addIngredient(AddIngredientRequest request, Long recipeId) {
         RecipeEntity recipe = recipeRepository.getById(recipeId);
 
         Optional<IngredientEntity> optional = ingredientRepository.findIngredientEntityByNameAndRecipe(request.getName(), recipe);
@@ -52,7 +51,7 @@ public class IngredientService {
     }
 
     //UPDATE INGREDIENT
-    public AddIngredientResponse updateIngredient(String name, String quantity, String um, Long id) {
+    public AddUpdateIngredientResponse updateIngredient(String name, String quantity, String um, Long id) {
 
         IngredientEntity ingredient = ingredientRepository.getById(id);
 
@@ -72,15 +71,16 @@ public class IngredientService {
     //GET INGREDIENTS
     public List<GetIngredientResponse> getIngredientsByName(String name) {
 
-        List<GetIngredientResponse> responseList =  ingredientMapper.entitiesToResponses(ingredientRepository.findAllByNameLike("%" + name + "%"));
+        List<GetIngredientResponse> responseList = ingredientMapper.entitiesToResponses(ingredientRepository.findAllByNameLike("%" + name + "%"));
 
 
         responseList.forEach(response -> response.add(linkTo(methodOn(CookBookController.class)
                 .getRecipeById(response.getRecipe().getId()))
                 .withRel("Recipe")));
 
-        return responseList.stream()
-                .distinct()
-                .collect(Collectors.toList());
+//        return responseList.stream()
+//                .distinct()
+//                .collect(Collectors.toList());
+        return responseList;
     }
 }

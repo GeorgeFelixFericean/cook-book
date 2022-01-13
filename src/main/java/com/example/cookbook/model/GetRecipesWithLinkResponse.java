@@ -2,7 +2,7 @@ package com.example.cookbook.model;
 
 import org.springframework.hateoas.RepresentationModel;
 
-public class GetRecipesResponse extends RepresentationModel {
+public class GetRecipesWithLinkResponse extends RepresentationModel {
     Long id;
     String name;
 

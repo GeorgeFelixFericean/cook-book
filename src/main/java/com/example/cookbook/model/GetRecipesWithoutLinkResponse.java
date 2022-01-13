@@ -1,6 +1,6 @@
 package com.example.cookbook.model;
 
-public class GetRecipeResponse {
+public class GetRecipesWithoutLinkResponse {
     Long id;
     String name;
 

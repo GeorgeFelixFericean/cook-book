@@ -3,6 +3,7 @@ package com.example.cookbook.service;
 import com.example.cookbook.mapping.MenuMapper;
 import com.example.cookbook.model.AddMenuRequest;
 import com.example.cookbook.model.AddMenuResponse;
+import com.example.cookbook.model.AddRecipeResponse;
 import com.example.cookbook.persistence.repository.MenuRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class MenuService {
     //ADD MENU
     public AddMenuResponse addMenu(AddMenuRequest request) {
         return menuMapper.entityToResponse(menuRepository.save(menuMapper.requestToEntity(request)));
+    }
+
+    //ADD RECIPE TO MENU
+    public AddRecipeResponse addRecipeToMenu(Long menuId, Long recipeId){
+        return null;
     }
 }

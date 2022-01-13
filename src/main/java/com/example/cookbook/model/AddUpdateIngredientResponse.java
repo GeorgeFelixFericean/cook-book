@@ -1,6 +1,6 @@
 package com.example.cookbook.model;
 
-public class AddIngredientResponse {
+public class AddUpdateIngredientResponse {
 
     private Long id;
     private String name;
