@@ -72,6 +72,19 @@ public class CookBookController {
         return ResponseEntity.ok(recipeService.getRecipeById(id));
     }
 
+    //DELETE RECIPE
+    @RequestMapping(
+            value = "/recipe/{id}",
+            method = RequestMethod.DELETE)
+    public ResponseEntity<GetRecipeByIdResponse> deleteRecipe(
+            @ApiParam(value = "The recipe id", required = true)
+            @PathVariable("id") Long id) {
+
+        return ResponseEntity.ok(recipeService.deleteRecipe(id));
+    }
+
+
+    //TODO - value = "recipe/{recipeId}/ingredient/{ingredientId}"
     //UPDATE INGREDIENT
     @RequestMapping(
             value = "/ingredient/{id}",

@@ -56,6 +56,16 @@ public class RecipeService {
         return recipeMapper.entityToGetResponse(recipeRepository.getById(id));
     }
 
+    //DELETE RECIPE
+    public GetRecipeByIdResponse deleteRecipe(Long id) {
+//        return recipeMapper.entityToGetResponse(recipeRepository.getById(id));
+        RecipeEntity entity = recipeRepository.getById(id);
+        GetRecipeByIdResponse response = recipeMapper.entityToGetResponse(entity);
+        recipeRepository.delete(entity);
+        return response;
+    }
+
+
     //HELPER METHODS
     private List<RecipeEntity> findByCriteria(String name) {
         return recipeRepository.findAll((Specification<RecipeEntity>) (root, query, criteriaBuilder) -> {
