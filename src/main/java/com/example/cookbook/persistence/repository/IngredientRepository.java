@@ -14,4 +14,6 @@ public interface IngredientRepository extends JpaRepository<IngredientEntity, Lo
     Optional<IngredientEntity> findIngredientEntityByNameAndRecipe(String name, RecipeEntity recipe);
 
     List<IngredientEntity> findAllByNameLike(String name);
+
+    IngredientEntity findIngredientEntityByRecipeIdAndId(Long recipeId, Long ingredientId);
 }

@@ -51,9 +51,9 @@ public class IngredientService {
     }
 
     //UPDATE INGREDIENT
-    public AddUpdateIngredientResponse updateIngredient(String name, String quantity, String um, Long id) {
+    public AddUpdateIngredientResponse updateIngredient(String name, String quantity, String um, Long ingredientId, Long recipeId) {
 
-        IngredientEntity ingredient = ingredientRepository.getById(id);
+        IngredientEntity ingredient = ingredientRepository.findIngredientEntityByRecipeIdAndId(recipeId, ingredientId);
 
         if (!name.isBlank()) {
             ingredient.setName(name);

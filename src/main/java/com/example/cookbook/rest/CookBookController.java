@@ -84,10 +84,9 @@ public class CookBookController {
     }
 
 
-    //TODO - value = "recipe/{recipeId}/ingredient/{ingredientId}"
     //UPDATE INGREDIENT
     @RequestMapping(
-            value = "/ingredient/{id}",
+            value = "recipe/{recipeId}/ingredient/{ingredientId}",
             produces = {"application/json;charset=utf-8"},
             method = RequestMethod.PUT)
     public ResponseEntity<AddUpdateIngredientResponse> updateIngredient(
@@ -105,9 +104,12 @@ public class CookBookController {
             @RequestParam(value = "um") String um
             ,
             @ApiParam(value = "The ingredient id", required = true)
-            @PathVariable("id") Long id) {
+            @PathVariable("ingredientId") Long ingredientId
+            ,
+            @ApiParam(value = "The recipe id", required = true)
+            @PathVariable("recipeId") Long recipeId) {
 
-        return ResponseEntity.ok(ingredientService.updateIngredient(name, quantity, um, id));
+        return ResponseEntity.ok(ingredientService.updateIngredient(name, quantity, um, ingredientId, recipeId));
     }
 
     //GET INGREDIENTS BY NAME
